@@ -1,9 +1,13 @@
 var icloud = require("find-my-iphone").findmyphone;
 
+const readline = require("readline").createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
 icloud.apple_id = "abdallah.sh1999@hotmail.com";
 icloud.password = "Abdulla^99";
 
-function alarm() {
+function alarm(month, day, hour, minute) {
   icloud.getDevices(function(error, devices) {
     var device;
 
@@ -21,33 +25,14 @@ function alarm() {
         device = d;
       }
     });
-    //   console.log(device);
+
     if (device) {
-      //gets the distance of the device from my location
       var myLatitude = 45.487115610618666;
       var myLongitude = -73.59342746694155;
 
-      // icloud.getDistanceOfDevice(device, myLatitude, myLongitude, function(
-      //   err,
-      //   result
-      // ) {
-      //   console.log("Distance: " + result.distance.text);
-      //   console.log("Driving time: " + result.duration.text);
-      // });
-
-      // icloud.alertDevice(device.id, function(err) {
-      //   console.log("Beep Beep!");
-      // });
-
-      // icloud.getLocationOfDevice(device, function(err, location) {
-      //   console.log(location);
-      // });
+      console.log(month - 1, day, hour, minute);
       var year = 2020;
-      var month = 2;
-      var day = 26;
-      var hour = 15;
-      var minute = 1;
-      var alarm = new Date(year, month, day, hour, minute);
+      var alarm = new Date(year, month - 1, day, hour, minute);
       var now = new Date();
       console.log(alarm - now);
       curLat = device.location.latitude;
@@ -56,12 +41,8 @@ function alarm() {
         Math.abs(curLat - myLatitude) < 0.0006 &&
         Math.abs(curLong - myLongitude) < 0.0006
       ) {
-        //   console.log(curLat);
-        //   console.log(curLong);
         setTimeout(() => {
-          icloud.alertDevice(device.id, function(err) {
-            // console.log(device.id);
-          });
+          icloud.alertDevice(device.id, function(err) {});
           interval();
         }, alarm - now);
       }
@@ -88,7 +69,6 @@ function interval() {
           device = d;
         }
       });
-      //   console.log(device);
       if (device) {
         //gets the distance of the device from my location
         var myLatitude = 45.487115610618666;
@@ -111,7 +91,8 @@ function interval() {
         }
       }
     });
-  }, 60000);
+  }, 300000);
 }
 
-alarm();
+alarm(3, 30, 19, 23);
+alarm(3, 30, 19, 24);

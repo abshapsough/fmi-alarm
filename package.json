@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "find-my-iphone": "^1.1.1"
+    "find-my-iphone": "^1.1.1",
+    "firebase-tools": "^7.16.1"
   },
   "devDependencies": {},
   "scripts": {
